@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">DemoSuite</string>
+    <string name="mode">dev</string>
+    <string name="title_activity_main_acitvity">DemoSuite</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="categories">Categories</string>
+    <string name="BASE_URL">https://stream-canvas-va1.herokuapp.com/</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem_ipsum_dec">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in</string>
+    <string name="more_label">More like this</string>
+    <string name="feature_movie_lbl">Recommended Movies</string>
+    <string name="feature_tv_lbl">Recommended TV</string>
+    <string name="feature_audio_lbl">Recommended Music</string>
+    <string name="audio_demo">https://storage.googleapis.com/exoplayer-test-media-0/play.mp3</string>
+    <string name="video_demo">https://stream-canvas-va1.herokuapp.com/getTestVideo</string>
+</resources>

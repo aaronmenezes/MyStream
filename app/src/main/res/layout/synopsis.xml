@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:clickable="true">
+
+    <ImageView
+        android:id="@+id/syn_poster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_weight="0.5"
+        app:srcCompat="@drawable/poster_unavailable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+    <ImageView
+        android:id="@+id/poster_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_weight="0.5"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/overlay2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"/>
+
+
+    <TextView
+        android:id="@+id/syn_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintTop_toBottomOf="@id/syn_poster"
+        app:layout_constraintLeft_toLeftOf="@id/syn_poster"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/syn_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem_ipsum_dec"
+        app:layout_constraintTop_toBottomOf="@id/syn_title"
+        app:layout_constraintLeft_toLeftOf="@id/syn_title"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:paddingRight="10dp"
+        android:maxLines="5"
+        android:ellipsize="end"/>
+
+    <View
+        android:id="@+id/div"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        app:layout_constraintTop_toBottomOf="@id/syn_desc"
+        app:layout_constraintLeft_toLeftOf="@id/syn_title"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/more_lbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:text="@string/more_label"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@id/syn_desc"
+        app:layout_constraintTop_toBottomOf="@id/div"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/more_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/more_lbl"
+        app:layout_constraintStart_toStartOf="@id/syn_desc"
+        />
+
+    <ImageButton
+        android:id="@+id/play_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/syn_poster"
+        app:layout_constraintEnd_toEndOf="@+id/syn_poster"
+        app:layout_constraintStart_toStartOf="@+id/syn_poster"
+        app:layout_constraintTop_toTopOf="@+id/syn_poster"
+        app:srcCompat="@drawable/play_button"
+        android:background="@drawable/round_corner"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

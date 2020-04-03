@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:id="@+id/featured_poster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/poster_unavailable"/>
+
+    <RelativeLayout
+        android:id="@+id/feature_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_corner"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@id/featured_poster"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/play_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ico_play"
+            android:drawablePadding="10dp"
+            android:textSize="15sp"
+            android:text="Play"
+            android:textColor="@color/white"
+            android:maxLines="2"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/feature_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WWWWWWW "
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/feature_play"
+        android:layout_marginBottom="20dp"/>
+
+    <ImageButton
+        android:id="@+id/feature_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/featured_poster"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round_corner"
+        app:srcCompat="@drawable/ico_info"
+        android:layout_toRightOf="@id/feature_play"
+        android:layout_marginLeft="20dp"/>
+</RelativeLayout>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="#4D2196F3" >
+
+                        <TextView
+                            android:id="@+id/btn_movie"
+                            android:paddingLeft="20dp"
+                            android:paddingVertical="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="20sp"
+                            android:textColor="@color/white"
+                            android:text="Movies" />
+
+                        <TextView
+                            android:id="@+id/btn_tv"
+                            android:paddingLeft="20dp"
+                            android:paddingVertical="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="20sp"
+                            android:textColor="@color/white"
+                            android:text="TV" />
+
+                        <TextView
+                            android:id="@+id/btn_music"
+                            android:paddingLeft="20dp"
+                            android:paddingVertical="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="20sp"
+                            android:textColor="@color/white"
+                            android:text="Music" />
+
+                        <TextView
+                            android:id="@+id/btn_radio"
+                            android:paddingLeft="20dp"
+                            android:paddingVertical="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="20sp"
+                            android:textColor="@color/white"
+                            android:text="Radio" />
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/header_div"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#FFFFFF"
+                        android:layout_marginTop="1dp"/>
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/carousel"
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp" />
+
+                    <TextView
+                        android:id="@+id/movie_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/feature_movie_lbl"
+                        android:textColor="@color/white"
+                        android:layout_below="@id/carousel"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
+                        android:textSize="20sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/feature_movie_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/more_lbl"
+                        android:layout_marginTop="10dp"/>
+
+                    <View
+                        android:id="@+id/movie_div"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider"
+                        android:layout_below="@id/feature_movie_list"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/feature_tv_lbl"
+                        android:textColor="@color/white"
+                        android:layout_below="@id/movie_div"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
+                        android:textSize="20sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/feature_tv_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_lbl"
+                        android:layout_marginTop="10dp"/>
+
+                    <View
+                        android:id="@+id/tv_div"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider"
+                        android:layout_below="@id/feature_tv_list"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/audio_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/feature_audio_lbl"
+                        android:textColor="@color/white"
+                        android:layout_below="@id/tv_div"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
+                        android:textSize="20sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/feature_audio_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/audio_lbl"
+                        android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+        <fragment
+            android:id="@+id/featured_synopsis"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:name="com.kyser.demosuite.view.ui.Synopsis"/>
+</RelativeLayout>
