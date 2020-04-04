@@ -31,7 +31,8 @@
                             android:layout_weight="1"
                             android:textSize="20sp"
                             android:textColor="@color/white"
-                            android:text="Movies" />
+                            android:text="Movies"
+                            android:background="@drawable/button_bg"/>
 
                         <TextView
                             android:id="@+id/btn_tv"
@@ -42,7 +43,8 @@
                             android:layout_weight="1"
                             android:textSize="20sp"
                             android:textColor="@color/white"
-                            android:text="TV" />
+                            android:text="TV"
+                            android:background="@drawable/button_bg"/>
 
                         <TextView
                             android:id="@+id/btn_music"
@@ -53,7 +55,8 @@
                             android:layout_weight="1"
                             android:textSize="20sp"
                             android:textColor="@color/white"
-                            android:text="Music" />
+                            android:text="Music"
+                            android:background="@drawable/button_bg"/>
 
                         <TextView
                             android:id="@+id/btn_radio"
@@ -64,7 +67,8 @@
                             android:layout_weight="1"
                             android:textSize="20sp"
                             android:textColor="@color/white"
-                            android:text="Radio" />
+                            android:text="Radio"
+                            android:background="@drawable/button_bg" />
                     </LinearLayout>
                     <View
                         android:id="@+id/header_div"

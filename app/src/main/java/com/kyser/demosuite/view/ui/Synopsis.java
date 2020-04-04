@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -44,7 +45,7 @@ public class Synopsis extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.play_video){
+        if(v.getId() == R.id.play_video ||v.getId() ==  R.id.btn_trailer){
            Intent intent =  new Intent(getContext(), Player.class);
            startActivity(intent);
         }
@@ -64,8 +65,11 @@ public class Synopsis extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.synopsis, container, false);
         mMoreList = view.findViewById(R.id.more_list);
         mMoreList.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
-        ImageButton playVideo = (ImageButton) view.findViewById(R.id.play_video);
-        playVideo.setOnClickListener(this);
+        view.findViewById(R.id.play_video).setOnClickListener(this);
+        view.findViewById(R.id.btn_download).setOnClickListener(this);
+        view.findViewById(R.id.btn_share).setOnClickListener(this);
+        view.findViewById(R.id.btn_trailer).setOnClickListener(this);
+        view.findViewById(R.id.btn_watchlist).setOnClickListener(this);
         return view;
     }
 
