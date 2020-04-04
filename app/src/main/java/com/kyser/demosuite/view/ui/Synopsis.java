@@ -49,6 +49,14 @@ public class Synopsis extends Fragment implements View.OnClickListener {
            Intent intent =  new Intent(getContext(), Player.class);
            startActivity(intent);
         }
+        else if (v.getId() == R.id.btn_share){
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody = "Watch : "+ ((TextView)this.getView().findViewById(R.id.syn_title)).getText()+" \n Story : "+((TextView)this.getView().findViewById(R.id.syn_desc)).getText();
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Watch : "+ ((TextView)this.getView().findViewById(R.id.syn_title)).getText());
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        }
     }
 
     interface OnFragmentInteractionListener {

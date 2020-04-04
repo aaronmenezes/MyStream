@@ -39,7 +39,8 @@
         android:layout_marginLeft="8dp"
         android:orientation="horizontal"
         android:paddingVertical="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/syn_poster">
 
         <LinearLayout
