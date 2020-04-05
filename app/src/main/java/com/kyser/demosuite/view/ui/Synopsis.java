@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kyser.demosuite.R;
+import com.kyser.demosuite.service.downloadservice.DirectoryHelper;
+import com.kyser.demosuite.service.downloadservice.DownloadService;
 import com.kyser.demosuite.service.model.FeaturedModel;
 import com.kyser.demosuite.service.model.ListingModel;
 import com.kyser.demosuite.service.streamservice.StreamService;
@@ -46,7 +48,9 @@ public class Synopsis extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.play_video ||v.getId() ==  R.id.btn_trailer){
+           int videoURI = v.getId() == R.id.play_video? R.string.video_demo:R.string.trailer_demo;
            Intent intent =  new Intent(getContext(), Player.class);
+           intent.putExtra("VIDEO_URI",getResources().getString(videoURI));
            startActivity(intent);
         }
         else if (v.getId() == R.id.btn_share){
@@ -57,6 +61,14 @@ public class Synopsis extends Fragment implements View.OnClickListener {
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
             startActivity(Intent.createChooser(sharingIntent, "Share via"));
         }
+        else if(v.getId() == R.id.btn_download){
+            downloadVideo();
+        }
+    }
+
+    private void downloadVideo() {
+        String SONG_DOWNLOAD_PATH = "https://stream-canvas-va1.herokuapp.com/getDownloadVideo";
+        getContext().startService(DownloadService.getDownloadService(getContext(), SONG_DOWNLOAD_PATH, DirectoryHelper.ROOT_DIRECTORY_NAME.concat("/")));
     }
 
     interface OnFragmentInteractionListener {

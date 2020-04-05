@@ -1,19 +1,24 @@
 package com.kyser.demosuite.view.ui;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.kyser.demosuite.R;
+import com.kyser.demosuite.service.downloadservice.DirectoryHelper;
 import com.kyser.demosuite.service.model.FeaturedModel;
 import com.kyser.demosuite.service.model.ListingModel;
 import com.kyser.demosuite.view.ui.adaptor.FeaturedAdaptor;
@@ -33,11 +38,13 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
     private List<ListingModel> mFeaturedModel;
     private RecyclerView mMovieList, mTVList, mAudioList;
     private MediaListAdaptor mMovieListAdaptor, mTVListAdaptor, mAudioListAdaptor;
+    final private int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 54654;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_featured);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
         hideNavBars();
         initIds();
         final FeaturedVideoListModel viewModel =  ViewModelProviders.of(this).get(FeaturedVideoListModel.class);
@@ -157,6 +164,7 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
     @Override
     public void onPlaySelection(ListingModel MediaList, int position) {
         Intent intent =  new Intent(this, Player.class);
+        intent.putExtra("VIDEO_URI",getResources().getString(R.string.video_demo));
         startActivity(intent);
     }
 
@@ -193,5 +201,14 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
         super.onResume();
         Synopsis.setListener(this);
         hideNavBars();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                DirectoryHelper.createDirectory(this);
+        }
     }
 }

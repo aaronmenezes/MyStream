@@ -16,7 +16,7 @@
         android:id="@+id/feature_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/round_corner"
+        android:background="@drawable/action_button"
         android:layout_centerHorizontal="true"
         android:layout_alignBottom="@id/featured_poster"
         android:layout_marginBottom="10dp">
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/featured_poster"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/round_corner"
+        android:background="@drawable/action_button"
         app:srcCompat="@drawable/ico_info"
         android:layout_toRightOf="@id/feature_play"
         android:layout_marginLeft="20dp"/>

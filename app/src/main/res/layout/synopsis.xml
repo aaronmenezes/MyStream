@@ -201,6 +201,6 @@
         app:layout_constraintStart_toStartOf="@+id/syn_poster"
         app:layout_constraintTop_toTopOf="@+id/syn_poster"
         app:srcCompat="@drawable/play_button"
-        android:background="@drawable/round_corner"/>
+        android:background="@drawable/action_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
