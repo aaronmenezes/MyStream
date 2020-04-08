@@ -57,7 +57,7 @@ public class FeaturedAdaptor extends PagerAdapter {
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.featured_item, collection, false);
         StringBuilder b_url = new StringBuilder(mContext.getString(R.string.BASE_URL));
         b_url.append("getImageAsset/");
-        b_url.append(mFeaturedModel.get(position).getSynopsisposter());
+        b_url.append( mFeaturedModel.get(position).getSynopsisposter());
         ImageView poster_img = layout.findViewById(R.id.featured_poster);
         Glide.with(poster_img)
                 .load(b_url.toString())

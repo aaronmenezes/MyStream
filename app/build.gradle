@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'  // Google Services plugin
 
 android {
     compileSdkVersion 28
@@ -36,4 +37,5 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-core:2.10.5'
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.10.5'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.10.5'
+    implementation 'com.google.firebase:firebase-messaging:20.1.5'
 }

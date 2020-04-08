@@ -1,4 +1,4 @@
-<resources>
+<string>
     <string name="app_name">DemoSuite</string>
     <string name="mode">dev</string>
     <string name="title_activity_main_acitvity">DemoSuite</string>
@@ -16,4 +16,7 @@
     <string name="audio_demo">https://storage.googleapis.com/exoplayer-test-media-0/play.mp3</string>
     <string name="video_demo">https://stream-canvas-va1.herokuapp.com/getTestVideo</string>
     <string name="trailer_demo">https://stream-canvas-va1.herokuapp.com/getTrailerVideo</string>
-</resources>
+    <string name="apikey"> 88375eb350bf21567c5e866c4cbbbe28</string>
+    <string name="topic">content_reminder</string>
+    <string name="firebase_token"> dB-OmIZwTVq_zkHqcIivX4:APA91bH3IFFUYtvzbbKt_mHXPnN1hrAt9gkwJ-m_aSfIpYxb3dOvyw0yf90ayx255ufiN6_aJKhhMASwbTrNKW2lfObkzDhxxF0BUDirm9vEm0G14JhJoHze8RwiE6P4BbplAkfyET4M</string>
+</string>

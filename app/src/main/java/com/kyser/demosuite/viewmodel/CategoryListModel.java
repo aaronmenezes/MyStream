@@ -11,13 +11,14 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+
 public class CategoryListModel extends AndroidViewModel {
 
     private final MutableLiveData<List<CategoryModel>> videoCategoryObservable;
 
     public CategoryListModel(Application application) {
         super(application);
-        videoCategoryObservable = StreamService.getInstance().getVideoCategory();
+          videoCategoryObservable = StreamService.getInstance().getVideoCategory();
     }
     public LiveData<List<CategoryModel>> getVideoCatObservable() {
         return videoCategoryObservable;

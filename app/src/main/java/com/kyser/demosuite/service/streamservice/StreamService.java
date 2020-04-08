@@ -1,11 +1,8 @@
 package com.kyser.demosuite.service.streamservice;
 
-import android.util.Log;
-
 import com.kyser.demosuite.service.model.CategoryModel;
 import com.kyser.demosuite.service.model.FeaturedModel;
 import com.kyser.demosuite.service.model.ListingModel;
-import com.kyser.demosuite.viewmodel.MediaListModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +21,8 @@ public class StreamService {
     private Retrofit mRetrofit;
     private VideoService mVideoService;
     private FeaturedService mFeaturedService;
+    private AudioService mAudioService;
+
     public interface SynopsisCallback { void onSynopsisReady(ListingModel synopsisModel);}
     public interface ServiceTest { void onTestResponse(String response);}
 
@@ -43,6 +42,7 @@ public class StreamService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         mVideoService = mRetrofit.create(VideoService.class);
+        mAudioService = mRetrofit.create(AudioService.class);
         mFeaturedService = mRetrofit.create(FeaturedService.class);
     }
     private VideoService getVideoService() {
@@ -51,7 +51,9 @@ public class StreamService {
     private FeaturedService getFeaturedService() {
         return mFeaturedService;
     }
-
+    private AudioService getAudioService() {
+        return mAudioService;
+    }
     public void testService(ServiceTest serviceTest){
         getFeaturedService().test().enqueue(new Callback<ResponseBody>() {
             @Override
@@ -72,6 +74,30 @@ public class StreamService {
         getVideoService().getVideoModel(27).enqueue(new Callback<List<CategoryModel>>() {
             @Override
             public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<CategoryModel>> call, Throwable t) {
+                List<CategoryModel> lt =new ArrayList<>();
+                CategoryModel cm =new CategoryModel();
+
+                for (int i = 1;i<11;i++) {
+                    cm.setTitle("Category" + i);
+                    lt.add(cm);
+                }
+                data.setValue(lt);
+            }
+        });
+        return data;
+    }
+
+    public MutableLiveData<List<CategoryModel>> getAudioCategory(){
+        final MutableLiveData<List<CategoryModel>> data = new MutableLiveData<>();
+        getAudioService().getAudioModel(29).enqueue(new Callback<List<CategoryModel>>() {
+            @Override
+            public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
+                System.out.println("================="+response.body().size());
                 data.setValue(response.body());
             }
 

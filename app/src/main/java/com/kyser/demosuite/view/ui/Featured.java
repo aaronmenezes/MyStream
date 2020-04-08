@@ -13,14 +13,18 @@ import androidx.viewpager.widget.ViewPager;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.kyser.demosuite.R;
 import com.kyser.demosuite.service.downloadservice.DirectoryHelper;
 import com.kyser.demosuite.service.model.FeaturedModel;
 import com.kyser.demosuite.service.model.ListingModel;
+import com.kyser.demosuite.service.streamservice.StreamService;
 import com.kyser.demosuite.view.ui.adaptor.FeaturedAdaptor;
 import com.kyser.demosuite.view.ui.adaptor.MediaListAdaptor;
 import com.kyser.demosuite.view.ui.components.SpaceItemDecoration;
@@ -47,9 +51,18 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
         hideNavBars();
         initIds();
-        final FeaturedVideoListModel viewModel =  ViewModelProviders.of(this).get(FeaturedVideoListModel.class);
+        final FeaturedVideoListModel viewModel = ViewModelProviders.of(this).get(FeaturedVideoListModel.class);
         observeViewModel(viewModel);
         initViewModels();
+        // ATTENTION: This was auto-generated to handle app links.
+        Intent appLinkIntent = getIntent();
+        FirebaseMessaging.getInstance().subscribeToTopic(getResources().getString(R.string.topic));
+        String appLinkAction = appLinkIntent.getAction();
+        if(appLinkAction != null) {
+            Uri appLinkData = appLinkIntent.getData();
+            Log.v("appLinkData = [", appLinkData.getLastPathSegment() + "]");
+            //StreamService.getInstance().getSynopsisModel(Integer.parseInt(appLinkData.getLastPathSegment() , 10),synopsisModel -> onInfoSelection(synopsisModel,0));
+        }
     }
 
     private void initIds() {
@@ -78,6 +91,10 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
 
         findViewById(R.id.btn_movie).setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), Listing.class);
+            startActivity(intent);
+        });
+        findViewById(R.id.btn_music).setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Albums.class);
             startActivity(intent);
         });
     }
