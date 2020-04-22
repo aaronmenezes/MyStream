@@ -41,4 +41,19 @@
         app:layout_constraintTop_toBottomOf="@id/album_cat"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="10dp"/>
+
+    <fragment
+        android:id="@+id/album_sysnopsis"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:name="com.kyser.demosuite.view.ui.AlbumSynopsis"/>
+
+
+    <fragment
+        android:id="@+id/audio_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:name="com.kyser.demosuite.view.ui.AudioPlayer"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

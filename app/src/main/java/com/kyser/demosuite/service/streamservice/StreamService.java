@@ -3,6 +3,7 @@ package com.kyser.demosuite.service.streamservice;
 import com.kyser.demosuite.service.model.CategoryModel;
 import com.kyser.demosuite.service.model.FeaturedModel;
 import com.kyser.demosuite.service.model.ListingModel;
+import com.kyser.demosuite.service.model.TrackModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class StreamService {
 
     public interface SynopsisCallback { void onSynopsisReady(ListingModel synopsisModel);}
     public interface ServiceTest { void onTestResponse(String response);}
+    public interface TracklistCallback { void onTracklistReady(List<TrackModel> tracklist);}
 
     public static StreamService getInstance(){
         if(__instaMediaServiceController==null)
@@ -172,6 +174,20 @@ public class StreamService {
             @Override
             public void onFailure(Call<List<ListingModel>> call, Throwable t) {
                 System.out.println("call = [" + call + "], t = [" + t + "]");
+            }
+        });
+    }
+
+    public void getTracklist(int aggmid, TracklistCallback mTracklistCallback){
+        getAudioService().getTracklistModel(aggmid).enqueue(new Callback<List<TrackModel>>() {
+            @Override
+            public void onResponse(Call<List<TrackModel>> call, Response<List<TrackModel>> response) {
+                mTracklistCallback.onTracklistReady(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<TrackModel>> call, Throwable t) {
+
             }
         });
     }

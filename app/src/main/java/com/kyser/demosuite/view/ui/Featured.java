@@ -1,10 +1,8 @@
 package com.kyser.demosuite.view.ui;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,19 +10,22 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingService;
 import com.kyser.demosuite.R;
 import com.kyser.demosuite.service.downloadservice.DirectoryHelper;
-import com.kyser.demosuite.service.model.FeaturedModel;
 import com.kyser.demosuite.service.model.ListingModel;
-import com.kyser.demosuite.service.streamservice.StreamService;
+import com.kyser.demosuite.service.preferences.HistoryService;
+import com.kyser.demosuite.view.ui.adaptor.AlbumListAdaptor;
 import com.kyser.demosuite.view.ui.adaptor.FeaturedAdaptor;
 import com.kyser.demosuite.view.ui.adaptor.MediaListAdaptor;
 import com.kyser.demosuite.view.ui.components.SpaceItemDecoration;
@@ -35,13 +36,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Featured extends AppCompatActivity implements MediaListAdaptor.ItemSelection, FeaturedAdaptor.ItemSelection, Synopsis.OnFragmentInteractionListener {
+public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemSelection, Synopsis.OnFragmentInteractionListener, View.OnClickListener {
 
     private FeaturedAdaptor mFeaturedAdaptor;
     private MediaListModel mMovielistModel, mTVlistModel, mAudiolistModel;
     private List<ListingModel> mFeaturedModel;
     private RecyclerView mMovieList, mTVList, mAudioList;
-    private MediaListAdaptor mMovieListAdaptor, mTVListAdaptor, mAudioListAdaptor;
+    private MediaListAdaptor mMovieListAdaptor, mTVListAdaptor;
+    private AlbumListAdaptor mAudioListAdaptor;
     final private int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 54654;
 
     @Override
@@ -49,6 +51,7 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_featured);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+        findViewById(R.id.album_sysnopsis).setVisibility(View.GONE);
         hideNavBars();
         initIds();
         final FeaturedVideoListModel viewModel = ViewModelProviders.of(this).get(FeaturedVideoListModel.class);
@@ -63,6 +66,13 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
             Log.v("appLinkData = [", appLinkData.getLastPathSegment() + "]");
             //StreamService.getInstance().getSynopsisModel(Integer.parseInt(appLinkData.getLastPathSegment() , 10),synopsisModel -> onInfoSelection(synopsisModel,0));
         }
+        PackageManager manager = this.getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo(this.getPackageName(), PackageManager.GET_ACTIVITIES);
+            ((TextView)findViewById(R.id.version_lbl)).setText(String.format("ver %s", info.versionName));
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initIds() {
@@ -70,47 +80,54 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
         ViewPager viewPager = (ViewPager) findViewById(R.id.carousel);
         mFeaturedAdaptor = new FeaturedAdaptor(this,this);
         viewPager.setAdapter(mFeaturedAdaptor);
-
+        startCarousel(viewPager,mFeaturedAdaptor);
         mMovieList = findViewById(R.id.feature_movie_list);
         mMovieList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
         mMovieList.addItemDecoration(new SpaceItemDecoration(1 ,20));
-        mMovieListAdaptor = new MediaListAdaptor(this,this);
+        mMovieListAdaptor = new MediaListAdaptor(this,mMovieSelected);
         mMovieList.setAdapter(mMovieListAdaptor);
 
         mTVList = findViewById(R.id.feature_tv_list);
         mTVList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
         mTVList.addItemDecoration(new SpaceItemDecoration(1 ,20));
-        mTVListAdaptor = new MediaListAdaptor(this,this);
+        mTVListAdaptor = new MediaListAdaptor(this,mTvSelected);
         mTVList.setAdapter(mTVListAdaptor);
 
         mAudioList = findViewById(R.id.feature_audio_list);
         mAudioList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
-        mAudioList.addItemDecoration(new SpaceItemDecoration(1 ,20));
-        mAudioListAdaptor = new MediaListAdaptor(this,this);
+        mAudioList.addItemDecoration(new SpaceItemDecoration(1 ,10));
+        mAudioListAdaptor = new AlbumListAdaptor(this,mAlbumSelection);
         mAudioList.setAdapter(mAudioListAdaptor);
 
-        findViewById(R.id.btn_movie).setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), Listing.class);
-            startActivity(intent);
-        });
-        findViewById(R.id.btn_music).setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), Albums.class);
-            startActivity(intent);
-        });
+        findViewById(R.id.history_menu).setOnClickListener(this);
+        findViewById(R.id.navbar_overlay).setOnClickListener(this);
+        findViewById(R.id.btn_movie).setOnClickListener(this);
+        findViewById(R.id.btn_music).setOnClickListener(this);
+        findViewById(R.id.movie_history).setOnClickListener(this);
+        findViewById(R.id.tv_history).setOnClickListener(this);
+        findViewById(R.id.album_history).setOnClickListener(this);
+        findViewById(R.id.app_icon).setOnClickListener(this);
+    }
+
+    public void startCarousel(ViewPager viewPager, FeaturedAdaptor mFeaturedAdaptor){
+        new Handler().postDelayed(() -> {
+            if(viewPager.getCurrentItem() +1 < mFeaturedAdaptor.getCount())
+                viewPager.setCurrentItem(viewPager.getCurrentItem() +1 ,true);
+            else
+                viewPager.setCurrentItem(0, true );
+            startCarousel(viewPager, mFeaturedAdaptor);
+        }, 10*1000);
     }
 
     private void observeViewModel(FeaturedVideoListModel viewModel) {
-        viewModel.getFeaturedListObservable().observe(this, new Observer<List<FeaturedModel>>() {
-            @Override
-            public void onChanged(@Nullable List<FeaturedModel> projects) {
-                if (projects != null) {
-                   // mFeaturedAdaptor.setCarouselModel(projects);
-                }
+        viewModel.getFeaturedListObservable().observe(this, projects -> {
+            if (projects != null) {
+               // mFeaturedAdaptor.setCarouselModel(projects);
             }
         });
     }
     private void initViewModels(){
-        mFeaturedModel = new ArrayList<ListingModel>();
+        mFeaturedModel = new ArrayList<>();
         mMovielistModel =  ViewModelProviders.of(this).get(MediaListModel.class);
         mMovielistModel.setMediaType("movie");
         mMovielistModel.setMediaCategory(38);
@@ -123,49 +140,36 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
         mMovielistModel.setMediaType("audio");
         mAudiolistModel.setMediaCategory(57);
         observeAudioModel(mAudiolistModel);
+
     }
     private void observeMovieModel(MediaListModel viewModel) {
-        viewModel.getMediaListObservable().observe(this, new Observer<List<ListingModel>>() {
-            @Override
-            public void onChanged(@Nullable List<ListingModel> projects) {
-                if (projects != null) {
-                    mMovieListAdaptor.setCategoryList(projects);
-                    Random rand = new Random();                    ;
-                    mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
-                    mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
-                    mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
-                    mFeaturedAdaptor.setCarouselModel(mFeaturedModel);
-                }
+        viewModel.getMediaListObservable().observe(this, projects -> {
+            if (projects != null) {
+                mMovieListAdaptor.setCategoryList(projects);
+                Random rand = new Random();                    ;
+                mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
+                mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
+                mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
+                mFeaturedAdaptor.setCarouselModel(mFeaturedModel);
             }
         });
     }
     private void observeTVModel(MediaListModel viewModel) {
-        viewModel.getMediaListObservable().observe(this, new Observer<List<ListingModel>>() {
-            @Override
-            public void onChanged(@Nullable List<ListingModel> projects) {
-                if (projects != null) {
-                    mTVListAdaptor.setCategoryList(projects);
-                    Random rand = new Random();                    ;
-                    mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
-                    mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
-                    mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
-                    mFeaturedAdaptor.setCarouselModel(mFeaturedModel);
-                }
+        viewModel.getMediaListObservable().observe(this, projects -> {
+            if (projects != null) {
+                mTVListAdaptor.setCategoryList(projects);
+                Random rand = new Random();
+                mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
+                mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
+                mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
+                mFeaturedAdaptor.setCarouselModel(mFeaturedModel);
             }
         });
     }
     private void observeAudioModel(MediaListModel viewModel) {
-        viewModel.getMediaListObservable().observe(this, new Observer<List<ListingModel>>() {
-            @Override
-            public void onChanged(@Nullable List<ListingModel> projects) {
-                if (projects != null) {
-                    mAudioListAdaptor.setCategoryList(projects);
-                    Random rand = new Random();                    ;
-                  //  mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
-                  //  mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
-                  //  mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
-                  //  mFeaturedAdaptor.setCarouselModel(mFeaturedModel);
-                }
+        viewModel.getMediaListObservable().observe(this, projects -> {
+            if (projects != null) {
+                mAudioListAdaptor.setCategoryList(projects);
             }
         });
     }
@@ -180,6 +184,7 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
 
     @Override
     public void onPlaySelection(ListingModel MediaList, int position) {
+        HistoryService.getInstance().logMovieItem(this, MediaList);
         Intent intent =  new Intent(this, Player.class);
         intent.putExtra("VIDEO_URI",getResources().getString(R.string.video_demo));
         startActivity(intent);
@@ -192,12 +197,33 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
         fragment.setSynopsisDetails(mediaList,mFeaturedAdaptor.getCarouselModel());
     }
 
-    @Override
-    public void onItemSelection(ListingModel mediaList, int position) {
-        findViewById(R.id.featured_synopsis).setVisibility(View.VISIBLE);
-        Synopsis fragment =(Synopsis) getSupportFragmentManager().findFragmentById(R.id.featured_synopsis);
-        fragment.setSynopsisDetails(mediaList,mMovielistModel.getMediaListObservable().getValue());
-    }
+
+    AlbumListAdaptor.ItemSelection mAlbumSelection = new AlbumListAdaptor.ItemSelection() {
+        @Override
+        public void onItemSelection(ListingModel MediaList, int position) {
+            findViewById(R.id.album_sysnopsis).setVisibility(View.VISIBLE);
+            AlbumSynopsis fragment =(AlbumSynopsis) getSupportFragmentManager().findFragmentById(R.id.album_sysnopsis);
+            fragment.setAlbumSynopsisDetails(MediaList,mAudiolistModel.getMediaListObservable().getValue());
+        }
+    };
+
+    MediaListAdaptor.ItemSelection mMovieSelected = new MediaListAdaptor.ItemSelection() {
+        @Override
+        public void onItemSelection(ListingModel MediaList, int position) {
+            findViewById(R.id.featured_synopsis).setVisibility(View.VISIBLE);
+            Synopsis fragment =(Synopsis) getSupportFragmentManager().findFragmentById(R.id.featured_synopsis);
+            fragment.setSynopsisDetails(MediaList,mMovielistModel.getMediaListObservable().getValue());
+        }
+    };
+
+    MediaListAdaptor.ItemSelection mTvSelected = new MediaListAdaptor.ItemSelection() {
+        @Override
+        public void onItemSelection(ListingModel MediaList, int position) {
+            findViewById(R.id.featured_synopsis).setVisibility(View.VISIBLE);
+            Synopsis fragment =(Synopsis) getSupportFragmentManager().findFragmentById(R.id.featured_synopsis);
+            fragment.setSynopsisDetails(MediaList,mTVlistModel.getMediaListObservable().getValue());
+        }
+    };
 
     @Override
     public void onMoreSelected(ListingModel model) {
@@ -209,6 +235,10 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
     public void onBackPressed() {
         if(findViewById(R.id.featured_synopsis).getVisibility()==View.VISIBLE)
             findViewById(R.id.featured_synopsis).setVisibility(View.GONE);
+        else if (findViewById(R.id.album_sysnopsis).getVisibility()==View.VISIBLE)
+            findViewById(R.id.album_sysnopsis).setVisibility(View.GONE);
+        else if(findViewById(R.id.portal_view).getVisibility() == View.VISIBLE)
+            findViewById(R.id.portal_view).setVisibility(View.GONE);
         else
             super.onBackPressed();
     }
@@ -226,6 +256,42 @@ public class Featured extends AppCompatActivity implements MediaListAdaptor.Item
         if (requestCode == WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 DirectoryHelper.createDirectory(this);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.history_menu || v.getId() == R.id.navbar_overlay){
+            toggleNavbar();
+        }else if(v.getId() == R.id.btn_movie){
+            Intent intent = new Intent(getApplicationContext(), Listing.class);
+            startActivity(intent);
+        }else if(v.getId() == R.id.btn_music){
+            Intent intent = new Intent(getApplicationContext(), Albums.class);
+            startActivity(intent);
+        }else if (v.getId() == R.id.app_icon){
+            WebView portal = (WebView) findViewById(R.id.portal_view);
+            portal.getSettings().setAppCacheEnabled(false);
+            portal.clearCache(true);
+            portal.setVisibility(View.VISIBLE);
+            portal.loadUrl("https://stream-canvas-va1.herokuapp.com/static/index.html");
+        }
+        else if(v.getId() == R.id.movie_history){
+            toggleNavbar();
+            Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+            startActivity(intent);
+        }
+        else if(v.getId() == R.id.tv_history){}
+        else if(v.getId() == R.id.album_history){}
+    }
+
+    private void toggleNavbar() {
+        if(findViewById(R.id.navbar).getVisibility() == View.VISIBLE){
+            findViewById(R.id.navbar).setVisibility(View.GONE);
+            findViewById(R.id.navbar_overlay).setVisibility(View.GONE);
+        }else{
+            findViewById(R.id.navbar).setVisibility(View.VISIBLE);
+            findViewById(R.id.navbar_overlay).setVisibility(View.VISIBLE);
         }
     }
 }

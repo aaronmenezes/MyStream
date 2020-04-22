@@ -48,12 +48,7 @@ public class AlbumListAdaptor extends RecyclerView.Adapter<AlbumListAdaptor.View
                 .error(Glide.with(holder.poster).load(R.drawable.album_poster2))
                 .into(holder.poster);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mItemSelection.onItemSelection(mMediaList.get(position),position);
-            }
-        });
+        holder.itemView.setOnClickListener(v -> mItemSelection.onItemSelection(mMediaList.get(position),position));
     }
 
     @Override

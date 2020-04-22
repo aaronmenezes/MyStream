@@ -23,6 +23,7 @@ import com.kyser.demosuite.service.downloadservice.DirectoryHelper;
 import com.kyser.demosuite.service.downloadservice.DownloadService;
 import com.kyser.demosuite.service.model.FeaturedModel;
 import com.kyser.demosuite.service.model.ListingModel;
+import com.kyser.demosuite.service.preferences.HistoryService;
 import com.kyser.demosuite.service.streamservice.StreamService;
 import com.kyser.demosuite.view.ui.adaptor.FeaturedAdaptor;
 import com.kyser.demosuite.view.ui.adaptor.MediaListAdaptor;
@@ -37,6 +38,7 @@ public class Synopsis extends Fragment implements View.OnClickListener {
     private FeaturedAdaptor mfeatuiredListAdaptor;
 
     private static OnFragmentInteractionListener mListener;
+    private ListingModel mCurrentModel;
 
     public Synopsis() {}
 
@@ -48,6 +50,7 @@ public class Synopsis extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.play_video ||v.getId() ==  R.id.btn_trailer){
+           HistoryService.getInstance().logMovieItem(getContext(), mCurrentModel);
            int videoURI = v.getId() == R.id.play_video? R.string.video_demo:R.string.trailer_demo;
            Intent intent =  new Intent(getContext(), Player.class);
            intent.putExtra("VIDEO_URI",getResources().getString(videoURI));
@@ -95,6 +98,7 @@ public class Synopsis extends Fragment implements View.OnClickListener {
 
     static void setListener(OnFragmentInteractionListener listener){mListener = listener;}
     void setSynopsisDetails( ListingModel model, List<ListingModel> listingmodel){
+        mCurrentModel = model;
         ((TextView)this.getView().findViewById(R.id.syn_title)).setText(model.getTitle());
         ((TextView)this.getView().findViewById(R.id.syn_desc)).setText(model.getDescription());
         ImageView poster = (ImageView) getView().findViewById(R.id.syn_poster);

@@ -2,6 +2,7 @@ package com.kyser.demosuite.service.streamservice;
 
 import com.kyser.demosuite.service.model.CategoryModel;
 import com.kyser.demosuite.service.model.ListingModel;
+import com.kyser.demosuite.service.model.TrackModel;
 
 import java.util.List;
 
@@ -16,5 +17,8 @@ public interface AudioService {
 
     @GET("getMediaModel/{cid}")
     Call<List<ListingModel>> getListingModel(@Path("cid") int cid);
+
+    @GET("getTracklistModel/{aggMid}")
+    Call<List<TrackModel>> getTracklistModel(@Path("aggMid") int mid);
 }
 

@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import com.kyser.demosuite.R;
 import com.kyser.demosuite.service.model.CategoryModel;
 import com.kyser.demosuite.service.model.ListingModel;
+import com.kyser.demosuite.service.model.TrackModel;
 import com.kyser.demosuite.view.ui.adaptor.AlbumListAdaptor;
 import com.kyser.demosuite.view.ui.adaptor.MediaListAdaptor;
 import com.kyser.demosuite.view.ui.components.SpaceItemDecoration;
@@ -39,6 +40,8 @@ public class Albums extends AppCompatActivity implements AlbumListAdaptor.ItemSe
         super.onCreate(savedInstanceState);
         hideNavBars();
         setContentView(R.layout.activity_albums);
+        findViewById(R.id.album_sysnopsis).setVisibility(View.GONE);
+        findViewById(R.id.audio_player).setVisibility(View.GONE);
         setListAdaptor();
         initViewModel();
         final AudioCategoryListModel mCategoryListModel =  ViewModelProviders.of(this).get(AudioCategoryListModel.class);
@@ -65,7 +68,7 @@ public class Albums extends AppCompatActivity implements AlbumListAdaptor.ItemSe
         mMediaListView = findViewById(R.id.album_listing);
         mMediaListView.setLayoutManager(new GridLayoutManager(this,2));
         mMediaListAdaptor = new AlbumListAdaptor(this,this);
-        mMediaListView.addItemDecoration(new SpaceItemDecoration(30,10));
+        mMediaListView.addItemDecoration(new SpaceItemDecoration(10,10));
         mMediaListView.setAdapter(mMediaListAdaptor);
     }
 
@@ -102,9 +105,17 @@ public class Albums extends AppCompatActivity implements AlbumListAdaptor.ItemSe
 
     @Override
     public void onItemSelection(ListingModel categoryModel, int position) {
-   /*     findViewById(R.id.synopsis).setVisibility(View.VISIBLE);
-        Synopsis fragment =(Synopsis) getSupportFragmentManager().findFragmentById(R.id.synopsis);
-        fragment.setSynopsisDetails(categoryModel,mListviewModel.getMediaListObservable().getValue());*/
+        findViewById(R.id.album_sysnopsis).setVisibility(View.VISIBLE);
+        AlbumSynopsis fragment =(AlbumSynopsis) getSupportFragmentManager().findFragmentById(R.id.album_sysnopsis);
+        fragment.setAlbumSynopsisDetails(categoryModel,mListviewModel.getMediaListObservable().getValue());
+    }
+
+    public void showPlayerFragment(ListingModel currentAlbumModel,List<TrackModel>  mediaModel, int position) {
+        if(findViewById(R.id.album_sysnopsis).getVisibility()==View.VISIBLE)
+            findViewById(R.id.album_sysnopsis).setVisibility(View.GONE);
+        findViewById(R.id.audio_player).setVisibility(View.VISIBLE);
+        AudioPlayer fragment =(AudioPlayer) getSupportFragmentManager().findFragmentById(R.id.audio_player);
+        fragment.setModel(currentAlbumModel,mediaModel,position);
     }
 
     @Override
@@ -120,4 +131,14 @@ public class Albums extends AppCompatActivity implements AlbumListAdaptor.ItemSe
         hideNavBars();
     }
 
+    @Override
+    public void onBackPressed() {
+        if(findViewById(R.id.album_sysnopsis).getVisibility()==View.VISIBLE)
+            findViewById(R.id.album_sysnopsis).setVisibility(View.GONE);
+        else if(findViewById(R.id.audio_player).getVisibility()==View.VISIBLE)
+            findViewById(R.id.audio_player).setVisibility(View.GONE);
+        else {
+            super.onBackPressed();
+        }
+    }
 }

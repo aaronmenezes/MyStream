@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kyser.demosuite.R;
+import com.kyser.demosuite.service.preferences.HistoryService;
 import com.kyser.demosuite.service.streamservice.StreamService;
 
 public class Splash extends AppCompatActivity implements Animation.AnimationListener {
@@ -29,6 +30,7 @@ public class Splash extends AppCompatActivity implements Animation.AnimationList
         setContentView(R.layout.activity_splash);
         callServiceTest();
         startSplashAnimation();
+        HistoryService.getInstance().getHistory(this);
     }
 
     private void callServiceTest() {

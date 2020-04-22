@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/button_bg"
+    android:weightSum="7">
+
+    <TextView
+        android:id="@+id/sr_no"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="01"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textAlignment="center"  />
+
+    <TextView
+        android:id="@+id/track_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TextV2222222222"
+        android:maxLines="2"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        android:layout_weight="4"/>
+
+    <TextView
+        android:id="@+id/track_duration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="00:08:00"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_weight="2"
+        android:textAlignment="textEnd"/>
 
 </LinearLayout>

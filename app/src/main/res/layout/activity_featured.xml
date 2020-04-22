@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_featured"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg"
@@ -22,6 +24,14 @@
                         android:orientation="horizontal"
                         android:background="#4D2196F3" >
 
+                        <ImageButton
+                            android:id="@+id/history_menu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_bg"
+                            app:srcCompat="@drawable/menu_list" />
+
                         <TextView
                             android:id="@+id/btn_movie"
                             android:paddingLeft="20dp"
@@ -29,7 +39,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="@color/white"
                             android:text="Movies"
                             android:background="@drawable/button_bg"/>
@@ -41,7 +51,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="@color/white"
                             android:text="TV"
                             android:background="@drawable/button_bg"/>
@@ -53,7 +63,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="@color/white"
                             android:text="Music"
                             android:background="@drawable/button_bg"/>
@@ -65,7 +75,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="@color/white"
                             android:text="Radio"
                             android:background="@drawable/button_bg" />
@@ -161,4 +171,129 @@
             android:layout_height="match_parent"
             android:visibility="gone"
             android:name="com.kyser.demosuite.view.ui.Synopsis"/>
+
+        <fragment
+            android:id="@+id/album_sysnopsis"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:name="com.kyser.demosuite.view.ui.AlbumSynopsis"/>
+
+        <RelativeLayout
+            android:id="@+id/navbar_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/overlay"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/navbar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="@color/app_bg">
+
+            <ImageView
+                android:id="@+id/app_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon1"
+                android:paddingLeft="100dp"
+                android:paddingRight="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"/>
+
+            <View
+                android:id="@+id/div1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_below="@id/app_icon"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@id/app_icon"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/movie_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/div1"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="Movie history"
+                android:background="@drawable/button_bg"/>
+
+            <View
+                android:id="@+id/div2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_below="@id/movie_history"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@id/app_icon"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/tv_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/movie_history"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="TV history"
+                android:background="@drawable/button_bg"/>
+
+            <View
+                android:id="@+id/div3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_below="@id/tv_history"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@id/app_icon"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/album_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_history"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="Album history"
+                android:background="@drawable/button_bg"/>
+
+            <View
+                android:id="@+id/div4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_below="@id/album_history"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@id/app_icon"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/version_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="Version" />
+        </RelativeLayout>
+
+    <WebView
+        android:id="@+id/portal_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 </RelativeLayout>

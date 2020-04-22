@@ -57,7 +57,7 @@ public class FeaturedAdaptor extends PagerAdapter {
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.featured_item, collection, false);
         StringBuilder b_url = new StringBuilder(mContext.getString(R.string.BASE_URL));
         b_url.append("getImageAsset/");
-        b_url.append( mFeaturedModel.get(position).getSynopsisposter());
+        b_url.append( mFeaturedModel.get(position).getPoster());
         ImageView poster_img = layout.findViewById(R.id.featured_poster);
         Glide.with(poster_img)
                 .load(b_url.toString())
@@ -65,19 +65,9 @@ public class FeaturedAdaptor extends PagerAdapter {
                 .error(Glide.with(poster_img).load(R.drawable.poster_unavailable ))
                 .into(poster_img);
         ((TextView)layout.findViewById(R.id.feature_title)).setText(mFeaturedModel.get(position).getTitle());
-        layout.findViewById(R.id.feature_play).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mItemSelection.onPlaySelection(mFeaturedModel.get(position),position);
-            }
-        });
+        layout.findViewById(R.id.feature_play).setOnClickListener(v -> mItemSelection.onPlaySelection(mFeaturedModel.get(position),position));
 
-        layout.findViewById(R.id.feature_info).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mItemSelection.onInfoSelection(mFeaturedModel.get(position),position);
-            }
-        });
+        layout.findViewById(R.id.feature_info).setOnClickListener(v -> mItemSelection.onInfoSelection(mFeaturedModel.get(position),position));
         collection.addView(layout);
         return layout;
     }

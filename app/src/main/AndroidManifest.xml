@@ -9,15 +9,19 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/microsoft"
+        android:icon="@mipmap/icon1"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/microsoft"
+        android:roundIcon="@mipmap/icon1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.ui.Albums"
+        <activity android:name=".view.ui.HistoryActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".view.ui.Albums"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".view.ui.Splash"
             android:screenOrientation="sensorPortrait"
@@ -71,6 +75,10 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+        <service
+            android:name=".service.audioplayer.AudioService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

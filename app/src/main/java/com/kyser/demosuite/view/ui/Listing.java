@@ -103,12 +103,9 @@ public class Listing extends AppCompatActivity implements MediaListAdaptor.ItemS
 
     private void observeViewModel(MediaListModel viewModel) {
         if(viewModel.getMediaListObservable()!=null)
-            viewModel.getMediaListObservable().observe(this, new Observer<List<ListingModel>>() {
-                @Override
-                public void onChanged(@Nullable List<ListingModel> projects) {
-                    if (projects != null) {
-                        mMediaListAdaptor.setCategoryList(projects);
-                    }
+            viewModel.getMediaListObservable().observe(this, projects -> {
+                if (projects != null) {
+                    mMediaListAdaptor.setCategoryList(projects);
                 }
             });
     }

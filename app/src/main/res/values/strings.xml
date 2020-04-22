@@ -6,7 +6,8 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="categories">Categories</string>
     <string name="BASE_URL">https://stream-canvas-va1.herokuapp.com/</string>
-
+    <string name="open">Open</string>
+    <string name="close">Close</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lorem_ipsum_dec">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in</string>
     <string name="more_label">More like this</string>
@@ -18,5 +19,6 @@
     <string name="trailer_demo">https://stream-canvas-va1.herokuapp.com/getTrailerVideo</string>
     <string name="apikey"> 88375eb350bf21567c5e866c4cbbbe28</string>
     <string name="topic">content_reminder</string>
-    <string name="firebase_token"> dB-OmIZwTVq_zkHqcIivX4:APA91bH3IFFUYtvzbbKt_mHXPnN1hrAt9gkwJ-m_aSfIpYxb3dOvyw0yf90ayx255ufiN6_aJKhhMASwbTrNKW2lfObkzDhxxF0BUDirm9vEm0G14JhJoHze8RwiE6P4BbplAkfyET4M</string>
+    <string nme="firebase_token"> dB-OmIZwTVq_zkHqcIivX4:APA91bH3IFFUYtvzbbKt_mHXPnN1hrAt9gkwJ-m_aSfIpYxb3dOvyw0yf90ayx255ufiN6_aJKhhMASwbTrNKW2lfObkzDhxxF0BUDirm9vEm0G14JhJoHze8RwiE6P4BbplAkfyET4M</string>
+
 </string>
