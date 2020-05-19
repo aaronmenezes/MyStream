@@ -266,7 +266,8 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:text="Album history"
-                android:background="@drawable/button_bg"/>
+                android:background="@drawable/button_bg"
+                android:visibility="gone"/>
 
             <View
                 android:id="@+id/div4"
@@ -274,6 +275,50 @@
                 android:layout_height="1dp"
                 android:background="@color/divider"
                 android:layout_below="@id/album_history"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@id/app_icon"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/update_media"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/album_history"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="Update Media"
+                android:background="@drawable/button_bg"/>
+
+            <View
+                android:id="@+id/div5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_below="@id/update_media"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@id/app_icon"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/gmap_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/update_media"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="Google Map Demo"
+                android:background="@drawable/button_bg"/>
+
+            <View
+                android:id="@+id/div6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_below="@id/gmap_demo"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@id/app_icon"
                 android:layout_marginTop="10dp"/>

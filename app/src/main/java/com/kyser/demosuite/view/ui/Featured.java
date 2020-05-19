@@ -45,12 +45,16 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
     private MediaListAdaptor mMovieListAdaptor, mTVListAdaptor;
     private AlbumListAdaptor mAudioListAdaptor;
     final private int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 54654;
+    final private int ACCESS_COARSE_LOCATION_REQUEST_CODE = 54754;
+    final private int ACCESS_FINE_LOCATION_REQUEST_CODE = 54854;
 
+    // keytool -keystore path-to-debug-or-production-keystore -list -v
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_featured);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+
         findViewById(R.id.album_sysnopsis).setVisibility(View.GONE);
         hideNavBars();
         initIds();
@@ -107,6 +111,8 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         findViewById(R.id.tv_history).setOnClickListener(this);
         findViewById(R.id.album_history).setOnClickListener(this);
         findViewById(R.id.app_icon).setOnClickListener(this);
+        findViewById(R.id.update_media).setOnClickListener(this);
+        findViewById(R.id.gmap_demo).setOnClickListener(this);
     }
 
     public void startCarousel(ViewPager viewPager, FeaturedAdaptor mFeaturedAdaptor){
@@ -276,12 +282,26 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
             portal.setVisibility(View.VISIBLE);
             portal.loadUrl("https://stream-canvas-va1.herokuapp.com/static/index.html");
         }
-        else if(v.getId() == R.id.movie_history){
+        else if(v.getId() == R.id.update_media){
             toggleNavbar();
-            Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+            Intent intent = new Intent(this,MediaUpdate.class);
             startActivity(intent);
         }
-        else if(v.getId() == R.id.tv_history){}
+        else if(v.getId() == R.id.movie_history){
+            toggleNavbar();
+            Intent intent = new Intent(getApplicationContext(), BKHistoryActivity.class);
+            startActivity(intent);
+        }
+        else if(v.getId() == R.id.gmap_demo){
+            toggleNavbar();
+            Intent it = new Intent(this, MapsActivity.class);
+            startActivity(it);
+        }
+        else if(v.getId() == R.id.tv_history){
+            toggleNavbar();
+            Intent it = new Intent(this, MediaHistory.class);
+            startActivity(it);
+        }
         else if(v.getId() == R.id.album_history){}
     }
 

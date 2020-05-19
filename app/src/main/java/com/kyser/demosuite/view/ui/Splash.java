@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kyser.demosuite.R;
+import com.kyser.demosuite.database.DataManager;
+import com.kyser.demosuite.database.NoteKeeperHelper;
 import com.kyser.demosuite.service.preferences.HistoryService;
 import com.kyser.demosuite.service.streamservice.StreamService;
 
@@ -31,6 +33,8 @@ public class Splash extends AppCompatActivity implements Animation.AnimationList
         callServiceTest();
         startSplashAnimation();
         HistoryService.getInstance().getHistory(this);
+        NoteKeeperHelper np = new NoteKeeperHelper(this);
+//        DataManager.getInstance().demo(np);
     }
 
     private void callServiceTest() {

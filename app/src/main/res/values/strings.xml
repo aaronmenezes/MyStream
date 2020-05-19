@@ -20,5 +20,12 @@
     <string name="apikey"> 88375eb350bf21567c5e866c4cbbbe28</string>
     <string name="topic">content_reminder</string>
     <string nme="firebase_token"> dB-OmIZwTVq_zkHqcIivX4:APA91bH3IFFUYtvzbbKt_mHXPnN1hrAt9gkwJ-m_aSfIpYxb3dOvyw0yf90ayx255ufiN6_aJKhhMASwbTrNKW2lfObkzDhxxF0BUDirm9vEm0G14JhJoHze8RwiE6P4BbplAkfyET4M</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_media_hsitory">MediaHsitory</string>
+    <string name="tab_text_1">Movie </string>
+    <string name="tab_text_2">TV</string>
+    <string name="tab_text_3">Albums</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">There are no viewed titles</string>
 
 </string>

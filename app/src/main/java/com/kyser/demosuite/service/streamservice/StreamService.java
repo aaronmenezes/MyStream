@@ -1,14 +1,21 @@
 package com.kyser.demosuite.service.streamservice;
 
+import android.util.Log;
+
 import com.kyser.demosuite.service.model.CategoryModel;
 import com.kyser.demosuite.service.model.FeaturedModel;
 import com.kyser.demosuite.service.model.ListingModel;
 import com.kyser.demosuite.service.model.TrackModel;
+import com.kyser.demosuite.service.model.UploadModel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,10 +30,12 @@ public class StreamService {
     private VideoService mVideoService;
     private FeaturedService mFeaturedService;
     private AudioService mAudioService;
+    private SearchService mSearchService;
 
     public interface SynopsisCallback { void onSynopsisReady(ListingModel synopsisModel);}
     public interface ServiceTest { void onTestResponse(String response);}
     public interface TracklistCallback { void onTracklistReady(List<TrackModel> tracklist);}
+    public interface UploadCallback { void onUploadResult(UploadModel result);}
 
     public static StreamService getInstance(){
         if(__instaMediaServiceController==null)
@@ -46,6 +55,7 @@ public class StreamService {
         mVideoService = mRetrofit.create(VideoService.class);
         mAudioService = mRetrofit.create(AudioService.class);
         mFeaturedService = mRetrofit.create(FeaturedService.class);
+        mSearchService = mRetrofit.create(SearchService.class);
     }
     private VideoService getVideoService() {
         return mVideoService;
@@ -187,6 +197,41 @@ public class StreamService {
 
             @Override
             public void onFailure(Call<List<TrackModel>> call, Throwable t) {
+
+            }
+        });
+    }
+    MutableLiveData<List<ListingModel>> searchList  =new MutableLiveData<>();
+    public MutableLiveData<List<ListingModel>> getSearchTitles(String title){
+
+        mSearchService.getSearchMedia(title).enqueue(new Callback<List<ListingModel>>() {
+            @Override
+            public void onResponse(Call<List<ListingModel>> call, Response<List<ListingModel>> response) {
+                Log.v("=====onResponse======= ","================");
+                searchList.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<ListingModel>> call, Throwable t) {
+                Log.v("=======error========== ","================");
+            }
+        });
+        return searchList;
+    }
+
+    public void uploadPoster(String uri , String mid , UploadCallback uploadCallback){
+        MultipartBody.Part filePart;
+        File file = new File(uri);
+        filePart = MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+
+        mSearchService.posterUpdate(filePart,MultipartBody.Part.createFormData("mid",mid)).enqueue(new Callback<UploadModel>() {
+            @Override
+            public void onResponse(Call<UploadModel> call, Response<UploadModel> response) {
+                uploadCallback.onUploadResult(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UploadModel> call, Throwable t) {
 
             }
         });
