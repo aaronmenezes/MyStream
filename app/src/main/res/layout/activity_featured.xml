@@ -6,7 +6,7 @@
     android:id="@+id/activity_featured"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_bg"
+    style="@style/app_background_dk"
     android:orientation="vertical">
 
         <ScrollView
@@ -42,7 +42,8 @@
                             android:textSize="18sp"
                             android:textColor="@color/white"
                             android:text="Movies"
-                            android:background="@drawable/button_bg"/>
+                            android:background="@drawable/button_bg"
+                            android:fontFamily="@font/montserrat_light"/>
 
                         <TextView
                             android:id="@+id/btn_tv"
@@ -54,7 +55,8 @@
                             android:textSize="18sp"
                             android:textColor="@color/white"
                             android:text="TV"
-                            android:background="@drawable/button_bg"/>
+                            android:background="@drawable/button_bg"
+                            android:fontFamily="@font/montserrat_light"/>
 
                         <TextView
                             android:id="@+id/btn_music"
@@ -66,7 +68,8 @@
                             android:textSize="18sp"
                             android:textColor="@color/white"
                             android:text="Music"
-                            android:background="@drawable/button_bg"/>
+                            android:background="@drawable/button_bg"
+                            android:fontFamily="@font/montserrat_light"/>
 
                         <TextView
                             android:id="@+id/btn_radio"
@@ -78,7 +81,8 @@
                             android:textSize="18sp"
                             android:textColor="@color/white"
                             android:text="Radio"
-                            android:background="@drawable/button_bg" />
+                            android:background="@drawable/button_bg"
+                            android:fontFamily="@font/montserrat_light"/>
                     </LinearLayout>
                     <View
                         android:id="@+id/header_div"
@@ -101,7 +105,8 @@
                         android:layout_below="@id/carousel"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:fontFamily="@font/montserrat_light"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/feature_movie_list"
@@ -127,7 +132,8 @@
                         android:layout_below="@id/movie_div"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:fontFamily="@font/montserrat_light"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/feature_tv_list"
@@ -153,7 +159,8 @@
                         android:layout_below="@id/tv_div"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:fontFamily="@font/montserrat_light"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/feature_audio_list"
@@ -191,7 +198,7 @@
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:visibility="gone"
-            android:background="@color/app_bg"
+            style="@style/app_background_dk"
             android:animateLayoutChanges="true">
 
             <RelativeLayout
@@ -221,7 +228,8 @@
                     android:layout_marginLeft="20dp"
                     android:text="User Name"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_light"/>
 
             </RelativeLayout>
 
@@ -244,7 +252,8 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:text="Movie history"
-                android:background="@drawable/button_bg"/>
+                android:background="@drawable/button_bg"
+                android:fontFamily="@font/montserrat_light"/>
 
             <View
                 android:id="@+id/div2"
@@ -266,7 +275,8 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:text="TV history"
-                android:background="@drawable/button_bg"/>
+                android:background="@drawable/button_bg"
+                android:fontFamily="@font/montserrat_light"/>
 
             <View
                 android:id="@+id/div3"
@@ -289,7 +299,8 @@
                 android:textSize="18sp"
                 android:text="Album history"
                 android:background="@drawable/button_bg"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:fontFamily="@font/montserrat_light"/>
 
             <View
                 android:id="@+id/div4"
@@ -311,7 +322,8 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:text="Update Media"
-                android:background="@drawable/button_bg"/>
+                android:background="@drawable/button_bg"
+                android:fontFamily="@font/montserrat_light"/>
 
             <View
                 android:id="@+id/div5"
@@ -333,7 +345,8 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:text="Google Map Demo"
-                android:background="@drawable/button_bg"/>
+                android:background="@drawable/button_bg"
+                android:fontFamily="@font/montserrat_light"/>
 
             <View
                 android:id="@+id/div6"
@@ -355,7 +368,8 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:text="Application Website"
-                android:background="@drawable/button_bg"/>
+                android:background="@drawable/button_bg"
+                android:fontFamily="@font/montserrat_light"/>
 
             <View
                 android:id="@+id/div7"
@@ -376,7 +390,8 @@
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="Version" />
+                android:text="Version"
+                android:fontFamily="@font/montserrat_light"/>
 
         </RelativeLayout>
 

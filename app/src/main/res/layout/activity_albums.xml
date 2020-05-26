@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ui.Albums"
-    android:background="@color/app_bg">
+    style="@style/app_background_dk">
 
     <TextView
         android:id="@+id/album_cat"

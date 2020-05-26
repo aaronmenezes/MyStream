@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ui.MediaUpdate"
-    android:background="@color/app_bg">
+    style="@style/app_background_dk">
 
     <TextView
         android:id="@+id/scrn_title_lbl"
@@ -99,7 +99,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         app:srcCompat="@drawable/arrow_right"
-        android:background="@color/app_bg"
+        android:background="@color/app_bg_dk"
         android:visibility="gone"/>
 
     <ImageView
