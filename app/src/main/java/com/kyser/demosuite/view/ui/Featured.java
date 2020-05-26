@@ -110,9 +110,10 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         findViewById(R.id.movie_history).setOnClickListener(this);
         findViewById(R.id.tv_history).setOnClickListener(this);
         findViewById(R.id.album_history).setOnClickListener(this);
-        findViewById(R.id.app_icon).setOnClickListener(this);
         findViewById(R.id.update_media).setOnClickListener(this);
         findViewById(R.id.gmap_demo).setOnClickListener(this);
+        findViewById(R.id.app_demo).setOnClickListener(this);
+
     }
 
     public void startCarousel(ViewPager viewPager, FeaturedAdaptor mFeaturedAdaptor){
@@ -275,12 +276,12 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         }else if(v.getId() == R.id.btn_music){
             Intent intent = new Intent(getApplicationContext(), Albums.class);
             startActivity(intent);
-        }else if (v.getId() == R.id.app_icon){
+        }else if (v.getId() == R.id.app_demo){
             WebView portal = (WebView) findViewById(R.id.portal_view);
             portal.getSettings().setAppCacheEnabled(false);
             portal.clearCache(true);
             portal.setVisibility(View.VISIBLE);
-            portal.loadUrl("https://stream-canvas-va1.herokuapp.com/static/index.html");
+            portal.loadUrl(getResources().getString(R.string.demo_website_url));
         }
         else if(v.getId() == R.id.update_media){
             toggleNavbar();

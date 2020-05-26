@@ -12,4 +12,5 @@
     <color name="history_bg">#373E42</color>
     <color name="divider">#54636F</color>
     <color name="overlay">#9F1E3D49</color>
+    <color name="profile_stage">#1F343A</color>
 </resources>
