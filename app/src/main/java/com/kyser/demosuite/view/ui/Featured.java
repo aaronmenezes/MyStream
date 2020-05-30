@@ -61,7 +61,7 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         final FeaturedVideoListModel viewModel = ViewModelProviders.of(this).get(FeaturedVideoListModel.class);
         observeViewModel(viewModel);
         initViewModels();
-        // ATTENTION: This was auto-generated to handle app links.
+
         Intent appLinkIntent = getIntent();
         FirebaseMessaging.getInstance().subscribeToTopic(getResources().getString(R.string.topic));
         String appLinkAction = appLinkIntent.getAction();
@@ -140,11 +140,11 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         mMovielistModel.setMediaCategory(38);
         observeMovieModel(mMovielistModel);
         mTVlistModel =  ViewModelProviders.of(this).get(MediaListModel.class);
-        mMovielistModel.setMediaType("tv");
+        mTVlistModel.setMediaType("tv");
         mTVlistModel.setMediaCategory(48);
         observeTVModel(mTVlistModel);
         mAudiolistModel =  ViewModelProviders.of(this).get(MediaListModel.class);
-        mMovielistModel.setMediaType("audio");
+        mAudiolistModel.setMediaType("audio");
         mAudiolistModel.setMediaCategory(57);
         observeAudioModel(mAudiolistModel);
 
@@ -153,7 +153,7 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         viewModel.getMediaListObservable().observe(this, projects -> {
             if (projects != null) {
                 mMovieListAdaptor.setCategoryList(projects);
-                Random rand = new Random();                    ;
+                Random rand = new Random();
                 mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
                 mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
                 mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
@@ -201,7 +201,8 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
     public void onInfoSelection(ListingModel mediaList, int position) {
         findViewById(R.id.featured_synopsis).setVisibility(View.VISIBLE);
         Synopsis fragment =(Synopsis) getSupportFragmentManager().findFragmentById(R.id.featured_synopsis);
-        fragment.setSynopsisDetails(mediaList,mFeaturedAdaptor.getCarouselModel());
+        fragment.setSynopsisDetails( mediaList, 27 , 38 ,mFeaturedAdaptor.getCarouselModel() );
+        //fragment.setSynopsisDetails(mediaList,mFeaturedAdaptor.getCarouselModel());
     }
 
 
@@ -219,7 +220,7 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         public void onItemSelection(ListingModel MediaList, int position) {
             findViewById(R.id.featured_synopsis).setVisibility(View.VISIBLE);
             Synopsis fragment =(Synopsis) getSupportFragmentManager().findFragmentById(R.id.featured_synopsis);
-            fragment.setSynopsisDetails(MediaList,mMovielistModel.getMediaListObservable().getValue());
+            fragment.setSynopsisDetails( MediaList, 27 , 38 ,mMovielistModel.getMediaListObservable().getValue() );
         }
     };
 
@@ -228,7 +229,7 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         public void onItemSelection(ListingModel MediaList, int position) {
             findViewById(R.id.featured_synopsis).setVisibility(View.VISIBLE);
             Synopsis fragment =(Synopsis) getSupportFragmentManager().findFragmentById(R.id.featured_synopsis);
-            fragment.setSynopsisDetails(MediaList,mTVlistModel.getMediaListObservable().getValue());
+            fragment.setSynopsisDetails(MediaList,27 , 48 ,mTVlistModel.getMediaListObservable().getValue());
         }
     };
 

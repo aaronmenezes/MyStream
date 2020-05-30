@@ -97,6 +97,14 @@ public class Synopsis extends Fragment implements View.OnClickListener {
     }
 
     static void setListener(OnFragmentInteractionListener listener){mListener = listener;}
+    void setSynopsisDetails( ListingModel model ,int cid , int scid , List<ListingModel> listingmodel){
+        System.out.println("model = [" + model.getMid() + "], cid = [" + cid + "], scid = [" + scid + "], listingmodel = [" + listingmodel + "]");
+        StreamService.getInstance().getSynopsisModel(model.getMid(), cid, scid, synopsisModel -> {
+
+        });
+        setSynopsisDetails( model, listingmodel);
+    }
+
     void setSynopsisDetails( ListingModel model, List<ListingModel> listingmodel){
         mCurrentModel = model;
         ((TextView)this.getView().findViewById(R.id.syn_title)).setText(model.getTitle());

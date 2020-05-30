@@ -9,6 +9,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface FeaturedService {
 
@@ -16,8 +17,8 @@ public interface FeaturedService {
     Call<List<FeaturedModel>> getFeatured();
 
 
-    @GET("/getSynopsisModel/{cid}")
-    Call<List<ListingModel>> getSynopsisModel(@Path("cid") int cid);
+    @GET("/getSynopsisModel")
+    Call<List<ListingModel>> getSynopsisModel(@Query("cid") int mid,@Query("cid") int cid,@Query("scid") int scid);
 
     @GET("/test")
     Call<ResponseBody> test();

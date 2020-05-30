@@ -49,7 +49,7 @@ public class StreamService {
     
     private void initService() {
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("https://stream-canvas-va1.herokuapp.com")
+                .baseUrl("https://stream-a1.herokuapp.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         mVideoService = mRetrofit.create(VideoService.class);
@@ -173,12 +173,13 @@ public class StreamService {
         return data;
     }
 
-    public void getSynopsisModel(int cid, SynopsisCallback mcallback){
-        getFeaturedService().getSynopsisModel(cid).enqueue(new Callback<List<ListingModel>>() {
+    public void getSynopsisModel(int mid,int cid ,int scid, SynopsisCallback mcallback){
+        System.out.println("mid = [" + mid + "], cid = [" + cid + "], scid = [" + scid + "], mcallback = [" + mcallback + "]");
+        getFeaturedService().getSynopsisModel(mid,cid,scid).enqueue(new Callback<List<ListingModel>>() {
             @Override
             public void onResponse(Call<List<ListingModel>> call, Response<List<ListingModel>> response) {
-                System.out.println("call = [" + call + "], response = [" + response.body().get(0).getDescription() + "]");
-                mcallback.onSynopsisReady(response.body().get(0));
+              //  System.out.println("call = [" + call + "], response = [" + response.body().get(0).getDescription() + "]");
+               // mcallback.onSynopsisReady(response.body().get(0));
             }
 
             @Override
