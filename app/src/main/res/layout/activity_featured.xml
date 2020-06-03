@@ -383,6 +383,29 @@
                 android:layout_marginTop="10dp"/>
 
             <TextView
+                android:id="@+id/insights"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/app_demo"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="Usage Statistics"
+                android:background="@drawable/button_bg"
+                android:fontFamily="@font/montserrat_light"/>
+
+            <View
+                android:id="@+id/div8"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_below="@id/insights"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
                 android:id="@+id/version_lbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

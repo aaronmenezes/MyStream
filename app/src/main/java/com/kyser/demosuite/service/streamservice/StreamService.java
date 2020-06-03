@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.kyser.demosuite.service.model.CategoryModel;
 import com.kyser.demosuite.service.model.FeaturedModel;
+import com.kyser.demosuite.service.model.InsightModel;
+import com.kyser.demosuite.service.model.InsightService;
 import com.kyser.demosuite.service.model.ListingModel;
 import com.kyser.demosuite.service.model.TrackModel;
 import com.kyser.demosuite.service.model.UploadModel;
@@ -31,11 +33,13 @@ public class StreamService {
     private FeaturedService mFeaturedService;
     private AudioService mAudioService;
     private SearchService mSearchService;
+    private InsightService mInsightService;
 
     public interface SynopsisCallback { void onSynopsisReady(ListingModel synopsisModel);}
     public interface ServiceTest { void onTestResponse(String response);}
     public interface TracklistCallback { void onTracklistReady(List<TrackModel> tracklist);}
     public interface UploadCallback { void onUploadResult(UploadModel result);}
+    public interface InsightCallback { void onResult(List<InsightModel> result);}
 
     public static StreamService getInstance(){
         if(__instaMediaServiceController==null)
@@ -56,6 +60,7 @@ public class StreamService {
         mAudioService = mRetrofit.create(AudioService.class);
         mFeaturedService = mRetrofit.create(FeaturedService.class);
         mSearchService = mRetrofit.create(SearchService.class);
+        mInsightService = mRetrofit.create(InsightService.class);
     }
     private VideoService getVideoService() {
         return mVideoService;
@@ -66,6 +71,10 @@ public class StreamService {
     private AudioService getAudioService() {
         return mAudioService;
     }
+    private InsightService getInsightService() {
+        return mInsightService;
+    }
+
     public void testService(ServiceTest serviceTest){
         getFeaturedService().test().enqueue(new Callback<ResponseBody>() {
             @Override
@@ -233,6 +242,20 @@ public class StreamService {
 
             @Override
             public void onFailure(Call<UploadModel> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void getInsights(String filter, InsightCallback mInsightCallback){
+        getInsightService().getSelectionHistory(filter).enqueue(new Callback<List<InsightModel>>() {
+            @Override
+            public void onResponse(Call<List<InsightModel>> call, Response<List<InsightModel>> response) {
+                mInsightCallback.onResult(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<InsightModel>> call, Throwable t) {
 
             }
         });

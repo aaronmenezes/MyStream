@@ -22,6 +22,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".view.ui.Insights"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".view.ui.MediaHistory"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity

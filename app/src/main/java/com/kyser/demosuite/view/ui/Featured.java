@@ -113,7 +113,7 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         findViewById(R.id.update_media).setOnClickListener(this);
         findViewById(R.id.gmap_demo).setOnClickListener(this);
         findViewById(R.id.app_demo).setOnClickListener(this);
-
+        findViewById(R.id.insights).setOnClickListener(this);
     }
 
     public void startCarousel(ViewPager viewPager, FeaturedAdaptor mFeaturedAdaptor){
@@ -297,6 +297,11 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         else if(v.getId() == R.id.gmap_demo){
             toggleNavbar();
             Intent it = new Intent(this, MapsActivity.class);
+            startActivity(it);
+        }
+        else if(v.getId() == R.id.insights){
+            toggleNavbar();
+            Intent it = new Intent(this, Insights.class);
             startActivity(it);
         }
         else if(v.getId() == R.id.tv_history){

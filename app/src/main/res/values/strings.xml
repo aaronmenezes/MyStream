@@ -16,6 +16,7 @@
     <string name="feature_audio_lbl">Recommended Music</string>
     <string name="audio_demo">https://storage.googleapis.com/exoplayer-test-media-0/play.mp3</string>
     <string name="base_url">https://stream-a1.herokuapp.com</string>
+    <string name="local_url">http://localhost:8080</string>
     <string name="video_demo">https://stream-a1.herokuapp.com/getTestVideo</string>
     <string name="trailer_demo">https://stream-a1.herokuapp.com/getTrailerVideo</string>
     <string name="apikey"> 88375eb350bf21567c5e866c4cbbbe28</string>
