@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kyser.demosuite.view.ui.components.SquareRelativelayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/album_poster_bg">
+
+    <ImageView
+        android:id="@+id/list_poster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/album_poster1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:id="@+id/list_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:ellipsize="marquee"
+        android:layout_alignBottom="@id/list_poster"
+        android:background="#D3243A44"
+        />
+</com.kyser.demosuite.view.ui.components.SquareRelativelayout>

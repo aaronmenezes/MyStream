@@ -50,7 +50,7 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:progress="50"
+            android:progress="0"
             android:progressTint="@color/white"
             android:paddingBottom="10dp"/>
 

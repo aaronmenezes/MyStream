@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ public class AudioPlayer extends Fragment implements View.OnClickListener {
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            // Cast and assign background service's onBind method returned iBander object.
+            // Cast and assign background service's onBind method returned iBinder object.
             System.out.println("==============componentName = [" + componentName + "], iBinder = [" + iBinder + "]");
             audioServiceBinder = (AudioServiceBinder) iBinder;
         }
@@ -67,6 +68,8 @@ public class AudioPlayer extends Fragment implements View.OnClickListener {
     }
 
     public void setModel(ListingModel currentAlbumModel, List<TrackModel> tracklist, int position){
+        Toast toast = Toast.makeText(getContext(), "This Sections is a WIP. Expect some bad behaviour", Toast.LENGTH_SHORT);
+        toast.show();
         ImageView poster = ((ImageView)getView().findViewById(R.id.player_poster));
         StringBuilder b_url = new StringBuilder(getContext().getString(R.string.BASE_URL));
         b_url.append("getAlbumImageAsset/");
@@ -118,7 +121,7 @@ public class AudioPlayer extends Fragment implements View.OnClickListener {
 
     private void startAudioPlay() {
         // Set web audio file url
-        audioServiceBinder.setAudioFileUrl("https://stream-canvas-va1.herokuapp.com/getTestAudio");
+        audioServiceBinder.setAudioFileUrl("https://stream-a1.herokuapp.com/getTestAudio");
         audioServiceBinder.setStreamAudio(true);
 
         // Set application context.
@@ -170,7 +173,7 @@ public class AudioPlayer extends Fragment implements View.OnClickListener {
                             int currProgress =audioServiceBinder.getAudioProgress();
 
                             // Update progressbar. Make the value 10 times to show more clear UI change.
-                            backgroundAudioProgress.setProgress(currProgress*10);
+                            backgroundAudioProgress.setProgress(currProgress);
                         }
                     }else if(msg.what == audioServiceBinder.EOS){
                         getView().findViewById(R.id.player_play).setSelected(false);

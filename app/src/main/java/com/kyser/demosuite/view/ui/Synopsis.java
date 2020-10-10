@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.kyser.demosuite.R;
@@ -67,10 +68,14 @@ public class Synopsis extends Fragment implements View.OnClickListener {
         else if(v.getId() == R.id.btn_download){
             downloadVideo();
         }
+        else if(v.getId() == R.id.btn_watchlist){
+            Toast toast = Toast.makeText(getContext(), "This Sections is a WIP. Memorize the watchlist yourself.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     private void downloadVideo() {
-        String SONG_DOWNLOAD_PATH = "https://stream-canvas-va1.herokuapp.com/getDownloadVideo";
+        String SONG_DOWNLOAD_PATH = "https://stream-a1.herokuapp.com/getDownloadVideo";
         getContext().startService(DownloadService.getDownloadService(getContext(), SONG_DOWNLOAD_PATH, DirectoryHelper.ROOT_DIRECTORY_NAME.concat("/")));
     }
 
