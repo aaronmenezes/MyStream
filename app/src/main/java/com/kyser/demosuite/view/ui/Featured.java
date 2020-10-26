@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,8 +20,10 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.kyser.demosuite.R;
 import com.kyser.demosuite.service.downloadservice.DirectoryHelper;
@@ -61,7 +65,7 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         final FeaturedVideoListModel viewModel = ViewModelProviders.of(this).get(FeaturedVideoListModel.class);
         observeViewModel(viewModel);
         initViewModels();
-
+        setAccountUi();
         Intent appLinkIntent = getIntent();
         FirebaseMessaging.getInstance().subscribeToTopic(getResources().getString(R.string.topic));
         String appLinkAction = appLinkIntent.getAction();
@@ -77,6 +81,16 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setAccountUi() {
+        ((TextView)findViewById(R.id.profile_name)).setText(getIntent().getStringExtra(getString(R.string.account_name)));
+        ImageView im =findViewById(R.id.profile_picture);
+        Glide.with(im)
+                .load(getIntent().getStringExtra(getString(R.string.account_face)))
+                .fitCenter()
+                .placeholder(R.drawable.user_picture)
+                .into(im);
     }
 
     private void initIds() {

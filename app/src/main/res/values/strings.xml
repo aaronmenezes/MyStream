@@ -1,6 +1,6 @@
 <string>
     <string name="app_name">DemoSuite</string>
-    <string name="mode">dev</string>
+    <string name="mode">rel</string>
     <string name="title_activity_main_acitvity">DemoSuite</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -29,5 +29,8 @@
     <string name="tab_text_3">Albums</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">There are no viewed titles</string>
+    <string name="account_name">account_name</string>
+    <string name="account_face">account_face</string>
+    <string name="user_name">User Name</string>
     <string name="demo_website_url">https://stream-a1.herokuapp.com/home</string>
 </string>

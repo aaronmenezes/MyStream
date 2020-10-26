@@ -228,7 +228,7 @@
                     android:layout_toRightOf="@id/profile_picture"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp"
-                    android:text="User Name"
+                    android:text="@string/user_name"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:fontFamily="@font/montserrat_light"/>
@@ -348,7 +348,8 @@
                 android:textSize="18sp"
                 android:text="Google Map Demo"
                 android:background="@drawable/button_bg"
-                android:fontFamily="@font/montserrat_light"/>
+                android:fontFamily="@font/montserrat_light"
+                android:visibility="gone"/>
 
             <View
                 android:id="@+id/div6"
