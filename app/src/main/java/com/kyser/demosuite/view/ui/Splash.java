@@ -122,6 +122,9 @@ public class Splash extends AppCompatActivity implements Animation.AnimationList
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(getString(R.string.account_name), mAccount.getGivenName());
                 intent.putExtra(getString(R.string.account_face), mAccount.getPhotoUrl().toString());
+                intent.putExtra(getString(R.string.account_mail), mAccount.getEmail());
+                intent.putExtra(getString(R.string.account_given_name), mAccount.getGivenName());
+                intent.putExtra(getString(R.string.account_family_name), mAccount.getFamilyName());
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                 finish();

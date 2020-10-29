@@ -32,5 +32,8 @@
     <string name="account_name">account_name</string>
     <string name="account_face">account_face</string>
     <string name="user_name">User Name</string>
+    <string name="account_mail">account_mail</string>
+    <string name="account_given_name">account_given_name</string>
+    <string name="account_family_name">account_family_name</string>
     <string name="demo_website_url">https://stream-a1.herokuapp.com/home</string>
 </string>

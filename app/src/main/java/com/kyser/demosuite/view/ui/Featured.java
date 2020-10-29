@@ -85,7 +85,15 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
 
     private void setAccountUi() {
         ((TextView)findViewById(R.id.profile_name)).setText(getIntent().getStringExtra(getString(R.string.account_name)));
+        ((TextView)findViewById(R.id.panel_profile_name)).setText(new StringBuilder().append(getIntent().getStringExtra(getString(R.string.account_given_name))).append(" ").append(getIntent().getStringExtra(getString(R.string.account_family_name))).toString());
+        ((TextView)findViewById(R.id.panel_profile_mail)).setText(getIntent().getStringExtra(getString(R.string.account_mail)));
         ImageView im =findViewById(R.id.profile_picture);
+        Glide.with(im)
+                .load(getIntent().getStringExtra(getString(R.string.account_face)))
+                .fitCenter()
+                .placeholder(R.drawable.user_picture)
+                .into(im);
+        im =findViewById(R.id.panel_profile_picture);
         Glide.with(im)
                 .load(getIntent().getStringExtra(getString(R.string.account_face)))
                 .fitCenter()
@@ -128,6 +136,9 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         findViewById(R.id.gmap_demo).setOnClickListener(this);
         findViewById(R.id.app_demo).setOnClickListener(this);
         findViewById(R.id.insights).setOnClickListener(this);
+        findViewById(R.id.profile_stage).setOnClickListener(this);
+        findViewById(R.id.panel_close).setOnClickListener(this);
+        findViewById(R.id.panel_sign_out).setOnClickListener(this);
     }
 
     public void startCarousel(ViewPager viewPager, FeaturedAdaptor mFeaturedAdaptor){
@@ -172,6 +183,8 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
                 mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
                 mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
                 mFeaturedAdaptor.setCarouselModel(mFeaturedModel);
+                findViewById(R.id.shimmer_view_container).setVisibility(View.GONE);
+                findViewById(R.id.main_content_scroll).setVisibility(View.VISIBLE);
             }
         });
     }
@@ -184,6 +197,8 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
                 mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
                 mFeaturedModel.add(projects.get(rand.nextInt(projects.size())));
                 mFeaturedAdaptor.setCarouselModel(mFeaturedModel);
+                findViewById(R.id.shimmer_view_container).setVisibility(View.GONE);
+                findViewById(R.id.main_content_scroll).setVisibility(View.VISIBLE);
             }
         });
     }
@@ -284,7 +299,10 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.history_menu || v.getId() == R.id.navbar_overlay){
-            toggleNavbar();
+            if(findViewById(R.id.profile_panel).getVisibility() == View.VISIBLE) {
+                findViewById(R.id.profile_panel).setVisibility(View.GONE);
+                findViewById(R.id.navbar_overlay).setVisibility(View.GONE);
+            }else toggleNavbar();
         }else if(v.getId() == R.id.btn_movie){
             Intent intent = new Intent(getApplicationContext(), Listing.class);
             startActivity(intent);
@@ -323,7 +341,24 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
             Intent it = new Intent(this, MediaHistory.class);
             startActivity(it);
         }
-        else if(v.getId() == R.id.album_history){}
+        else if(v.getId() == R.id.profile_stage){
+            toggleNavbar();
+            findViewById(R.id.profile_panel).setVisibility(View.VISIBLE);
+            findViewById(R.id.navbar_overlay).setVisibility(View.VISIBLE);
+        }
+        else if(v.getId() == R.id.panel_close){
+            findViewById(R.id.profile_panel).setVisibility(View.GONE);
+            findViewById(R.id.navbar_overlay).setVisibility(View.GONE);
+        }
+        else if(v.getId() == R.id.panel_sign_out) {
+            Intent intent = new Intent(this,Splash.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            finish();
+        }else if(v.getId() == R.id.album_history){}
+
     }
 
     private void toggleNavbar() {
