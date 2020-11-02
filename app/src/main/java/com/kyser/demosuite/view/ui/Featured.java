@@ -19,8 +19,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -342,9 +345,9 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
             startActivity(it);
         }
         else if(v.getId() == R.id.profile_stage){
-            toggleNavbar();
             findViewById(R.id.profile_panel).setVisibility(View.VISIBLE);
             findViewById(R.id.navbar_overlay).setVisibility(View.VISIBLE);
+            toggleNavbar();
         }
         else if(v.getId() == R.id.panel_close){
             findViewById(R.id.profile_panel).setVisibility(View.GONE);
@@ -362,12 +365,39 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
     }
 
     private void toggleNavbar() {
-        if(findViewById(R.id.navbar).getVisibility() == View.VISIBLE){
-            findViewById(R.id.navbar).setVisibility(View.GONE);
-            findViewById(R.id.navbar_overlay).setVisibility(View.GONE);
+        RelativeLayout navbar = findViewById(R.id.navbar);
+        if(navbar.getVisibility() == View.VISIBLE){
+            Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) { }
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if(findViewById(R.id.profile_panel).getVisibility() != View.VISIBLE)
+                        findViewById(R.id.navbar_overlay).setVisibility(View.GONE);
+                    navbar.setVisibility(View.GONE);
+                }
+                @Override
+                public void onAnimationRepeat(Animation animation) { }
+            });
+            navbar.startAnimation(animation);
+
+
         }else{
-            findViewById(R.id.navbar).setVisibility(View.VISIBLE);
-            findViewById(R.id.navbar_overlay).setVisibility(View.VISIBLE);
+            navbar.setVisibility(View.VISIBLE);
+            Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    navbar.setVisibility(View.VISIBLE);
+                    findViewById(R.id.navbar_overlay).setVisibility(View.VISIBLE);
+                }
+                @Override
+                public void onAnimationEnd(Animation animation) { }
+                @Override
+                public void onAnimationRepeat(Animation animation) { }
+            });
+            navbar.startAnimation(animation);
         }
     }
 }
