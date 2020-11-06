@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Glide;
 import com.kyser.demosuite.R;
 import com.kyser.demosuite.service.downloadservice.DirectoryHelper;
@@ -121,8 +122,9 @@ public class Synopsis extends Fragment implements View.OnClickListener {
         Glide.with(getView())
                 .load(b_url.toString())
                 .fitCenter()
-                .placeholder(R.drawable.poster_unavailable)
-                .into(poster);
+                .placeholder(R.drawable.poster_unavailable) 
+                .transition(GenericTransitionOptions.with(R.anim.synopsis_poster_in))
+                .into(poster) ;
         List<ListingModel> moreListingModel = new ArrayList<ListingModel>() ;
         moreListingModel.addAll(listingmodel);
         for(ListingModel curModel: moreListingModel){

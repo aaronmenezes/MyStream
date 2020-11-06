@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/icon1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        >
         <activity
             android:name=".view.ui.Insights"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
