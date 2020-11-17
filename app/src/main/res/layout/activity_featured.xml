@@ -179,7 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            android:name="com.kyser.demosuite.view.ui.Synopsis"/>
+            android:name="com.kyser.demosuite.view.ui.Synopsis" />
 
         <fragment
             android:id="@+id/album_sysnopsis"

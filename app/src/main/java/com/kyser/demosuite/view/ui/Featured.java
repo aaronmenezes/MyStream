@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -354,7 +352,7 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
             findViewById(R.id.navbar_overlay).setVisibility(View.GONE);
         }
         else if(v.getId() == R.id.panel_sign_out) {
-            Intent intent = new Intent(this,Splash.class);
+            Intent intent = new Intent(this, Splash2.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

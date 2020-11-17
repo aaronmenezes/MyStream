@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -16,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kyser.demosuite.R;
 import com.kyser.demosuite.service.model.CategoryModel;
 import com.kyser.demosuite.service.model.ListingModel;
@@ -27,7 +30,7 @@ import com.kyser.demosuite.viewmodel.MediaListModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Listing extends AppCompatActivity implements MediaListAdaptor.ItemSelection, AdapterView.OnItemSelectedListener, Synopsis.OnFragmentInteractionListener {
+public class Listing extends AppCompatActivity implements MediaListAdaptor.ItemSelection, AdapterView.OnItemSelectedListener, Synopsis.OnFragmentInteractionListener, View.OnClickListener {
     RecyclerView mMediaListView ;
     MediaListAdaptor mMediaListAdaptor;
     private List<CategoryModel> mCategoryList;
@@ -44,6 +47,8 @@ public class Listing extends AppCompatActivity implements MediaListAdaptor.ItemS
         final CategoryListModel mCategoryListModel =  ViewModelProviders.of(this).get(CategoryListModel.class);
         observeCategoryViewModel(mCategoryListModel);
         Synopsis.setListener(this);
+        ((FloatingActionButton)  findViewById(R.id.scroll_top_btn)).setOnClickListener(this);
+
     }
 
     private void observeCategoryViewModel(CategoryListModel viewModel) {
@@ -76,7 +81,21 @@ public class Listing extends AppCompatActivity implements MediaListAdaptor.ItemS
         mMediaListAdaptor = new MediaListAdaptor(this,this);
         mMediaListView.addItemDecoration(new SpaceItemDecoration(30,1));
         mMediaListView.setAdapter(mMediaListAdaptor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mMediaListView.setOnScrollChangeListener((RecyclerView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                    new Handler().postDelayed(checkFAB,2000);
+            });
+        }
     }
+
+    Runnable checkFAB = new Runnable() {
+        @Override
+        public void run() {
+            if(mMediaListView.computeVerticalScrollOffset() >0 && findViewById(R.id.synopsis).getVisibility()!=View.VISIBLE)
+                findViewById(R.id.scroll_top_btn).setVisibility(View.VISIBLE);
+            else findViewById(R.id.scroll_top_btn).setVisibility(View.GONE) ;
+        }
+    };
 
 
     private void initViewModel(){
@@ -96,9 +115,11 @@ public class Listing extends AppCompatActivity implements MediaListAdaptor.ItemS
 
     @Override
     public void onItemSelection(ListingModel categoryModel, int position) {
+        findViewById(R.id.scroll_top_btn).setVisibility(View.GONE);
         findViewById(R.id.synopsis).setVisibility(View.VISIBLE);
         Synopsis fragment =(Synopsis) getSupportFragmentManager().findFragmentById(R.id.synopsis);
         fragment.setSynopsisDetails(categoryModel,mListviewModel.getMediaListObservable().getValue());
+
     }
 
     private void observeViewModel(MediaListModel viewModel) {
@@ -115,7 +136,7 @@ public class Listing extends AppCompatActivity implements MediaListAdaptor.ItemS
         System.out.println("parent = [" + parent + "], view = [" + view + "], position = [" + position + "], id = [" + id + "]");
         mListviewModel.setMediaCategory(mCategoryList.get(position).getCid());
         observeViewModel(mListviewModel);
-        hideNavBars();
+        hideNavBars(); 
     }
 
     @Override
@@ -125,9 +146,10 @@ public class Listing extends AppCompatActivity implements MediaListAdaptor.ItemS
 
     @Override
     public void onBackPressed() {
-        if(findViewById(R.id.synopsis).getVisibility()==View.VISIBLE)
+        if(findViewById(R.id.synopsis).getVisibility()==View.VISIBLE) {
             findViewById(R.id.synopsis).setVisibility(View.GONE);
-        else {
+            new Handler().postDelayed(checkFAB, 2000);
+        }else {
             super.onBackPressed();
         }
     }
@@ -136,5 +158,13 @@ public class Listing extends AppCompatActivity implements MediaListAdaptor.ItemS
     public void onMoreSelected(ListingModel model) {
         Synopsis fragment =(Synopsis) getSupportFragmentManager().findFragmentById(R.id.synopsis);
         fragment.setSynopsisDetails(model,mListviewModel.getMediaListObservable().getValue());
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.scroll_top_btn){
+            mMediaListView.smoothScrollToPosition(0);
+            findViewById(R.id.scroll_top_btn).setVisibility(View.GONE);
+        }
     }
 }

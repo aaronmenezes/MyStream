@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -122,7 +123,7 @@ public class Synopsis extends Fragment implements View.OnClickListener {
         Glide.with(getView())
                 .load(b_url.toString())
                 .fitCenter()
-                .placeholder(R.drawable.poster_unavailable) 
+                .placeholder(R.drawable.poster_unavailable)
                 .transition(GenericTransitionOptions.with(R.anim.synopsis_poster_in))
                 .into(poster) ;
         List<ListingModel> moreListingModel = new ArrayList<ListingModel>() ;
