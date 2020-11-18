@@ -136,7 +136,7 @@ public class Listing extends AppCompatActivity implements MediaListAdaptor.ItemS
         System.out.println("parent = [" + parent + "], view = [" + view + "], position = [" + position + "], id = [" + id + "]");
         mListviewModel.setMediaCategory(mCategoryList.get(position).getCid());
         observeViewModel(mListviewModel);
-        hideNavBars(); 
+        hideNavBars();
     }
 
     @Override

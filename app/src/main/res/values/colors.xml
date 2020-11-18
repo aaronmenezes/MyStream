@@ -7,6 +7,7 @@
     <color name="black_overlay">#66000000</color>
     <color name="button_overlay_n">#486DB0F3</color>
     <color name="button_overlay_p">#CE409EFA</color>
+    <color name="snackbar_bg">#409EFA</color>
     <color name="white">#FFFFFF</color>
     <color name="app_bg_dk">#263238</color>
     <color name="history_bg">#373E42</color>

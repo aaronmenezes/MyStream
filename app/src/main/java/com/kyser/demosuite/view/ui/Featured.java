@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.kyser.demosuite.R;
 import com.kyser.demosuite.service.downloadservice.DirectoryHelper;
@@ -130,6 +131,8 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         findViewById(R.id.navbar_overlay).setOnClickListener(this);
         findViewById(R.id.btn_movie).setOnClickListener(this);
         findViewById(R.id.btn_music).setOnClickListener(this);
+        findViewById(R.id.btn_tv).setOnClickListener(this);
+        findViewById(R.id.btn_radio).setOnClickListener(this);
         findViewById(R.id.movie_history).setOnClickListener(this);
         findViewById(R.id.tv_history).setOnClickListener(this);
         findViewById(R.id.album_history).setOnClickListener(this);
@@ -299,17 +302,24 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.history_menu || v.getId() == R.id.navbar_overlay){
-            if(findViewById(R.id.profile_panel).getVisibility() == View.VISIBLE) {
+        if (v.getId() == R.id.history_menu || v.getId() == R.id.navbar_overlay) {
+            if (findViewById(R.id.profile_panel).getVisibility() == View.VISIBLE) {
                 findViewById(R.id.profile_panel).setVisibility(View.GONE);
                 findViewById(R.id.navbar_overlay).setVisibility(View.GONE);
-            }else toggleNavbar();
-        }else if(v.getId() == R.id.btn_movie){
+            } else toggleNavbar();
+        } else if (v.getId() == R.id.btn_movie) {
             Intent intent = new Intent(getApplicationContext(), Listing.class);
             startActivity(intent);
-        }else if(v.getId() == R.id.btn_music){
+        } else if (v.getId() == R.id.btn_music) {
             Intent intent = new Intent(getApplicationContext(), Albums.class);
             startActivity(intent);
+        }else if (v.getId() == R.id.btn_tv || v.getId() == R.id.btn_radio){
+            View contextView = findViewById(R.id.btn_tv);
+            Snackbar.make(contextView,"Not Available", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(getResources().getColor(R.color.snackbar_bg))
+                    .setActionTextColor((getResources().getColor(R.color.white)))
+//                    .setAction("Use Prime", v1 -> {})
+                    .show();
         }else if (v.getId() == R.id.app_demo){
             WebView portal = (WebView) findViewById(R.id.portal_view);
             portal.getSettings().setAppCacheEnabled(false);
