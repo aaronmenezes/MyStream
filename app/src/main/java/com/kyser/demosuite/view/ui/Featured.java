@@ -132,7 +132,7 @@ public class Featured extends AppCompatActivity implements FeaturedAdaptor.ItemS
         findViewById(R.id.btn_movie).setOnClickListener(this);
         findViewById(R.id.btn_music).setOnClickListener(this);
         findViewById(R.id.btn_tv).setOnClickListener(this);
-        findViewById(R.id.btn_radio).setOnClickListener(this);
+        findViewById(R.id.btn_radio ).setOnClickListener(this);
         findViewById(R.id.movie_history).setOnClickListener(this);
         findViewById(R.id.tv_history).setOnClickListener(this);
         findViewById(R.id.album_history).setOnClickListener(this);

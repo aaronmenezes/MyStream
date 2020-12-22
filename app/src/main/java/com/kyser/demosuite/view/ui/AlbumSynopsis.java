@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Glide;
 import com.kyser.demosuite.R;
 import com.kyser.demosuite.service.model.ListingModel;
@@ -81,6 +82,8 @@ public class AlbumSynopsis extends Fragment implements View.OnClickListener {
     }
 
     void setAlbumSynopsisDetails( ListingModel model, List<ListingModel> listingmodel) {
+        if( mTrackAdaptor.getTracklistModel()!=null)
+            mTrackAdaptor.getTracklistModel().clear();
         mCurrentAlbumModel = model;
         View v = this.getView();
         ((TextView) this.getView().findViewById(R.id.album_syn_title)).setText(model.getTitle());
@@ -93,6 +96,7 @@ public class AlbumSynopsis extends Fragment implements View.OnClickListener {
                 .load(b_url.toString())
                 .fitCenter()
                 .placeholder(R.drawable.poster_unavailable)
+                .transition(GenericTransitionOptions.with(R.anim.slide_out))
                 .into(poster);
         StreamService.getInstance().getTracklist(model.getMid(), tracklist -> {
             ((TextView) v.findViewById(R.id.album_syn_artist)).setText(tracklist.get(0).getArtist());
