@@ -1,1 +1,1 @@
-A demo Video/audio streaming applications
+A demo Video/audio streaming application
